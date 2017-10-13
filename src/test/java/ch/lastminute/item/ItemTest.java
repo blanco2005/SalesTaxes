@@ -12,20 +12,16 @@ import junitparams.Parameters;
 public class ItemTest {
 
 	@Test
-	@Parameters({ "12.49", "14.99", "1" })
+	@Parameters({ "0.0001", "1", "12.49", "14.99", })
 	public void getShelfPriceTest(final double shelfPrice) {
 		final Item item = new Item(shelfPrice);
 		assertEquals(shelfPrice, item.getShelfPrice(), 0);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void negativePriceTest() {
-		new Item(-10);
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void priceEqualsToZeroTest() {
-		new Item(0);
+	@Parameters({ "0", "-0.0001", "-1", "-10" })
+	public void invalidShelfPrice(final double shelfPrice) {
+		new Item(shelfPrice);
 	}
 
 }
