@@ -48,4 +48,9 @@ public class RoundingTest {
 		assertEquals(new BigDecimal("0.00"), roundingPolicy.round(new BigDecimal("0.02")));
 	}
 
+	@Test
+	public void roundingToUpperWhenHalfWayTest() {
+		assertEquals(new BigDecimal("0.90"), roundingPolicy.round(new BigDecimal("0.875")));
+	}
+
 }
