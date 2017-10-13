@@ -27,4 +27,9 @@ public class RoundingTest {
 		assertEquals(new BigDecimal(amount), roundingPolicy.round(new BigDecimal(amount)));
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void roundingZeroTest() {
+		roundingPolicy.round(BigDecimal.ZERO);
+	}
+
 }
