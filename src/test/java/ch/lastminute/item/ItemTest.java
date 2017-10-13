@@ -20,27 +20,27 @@ public class ItemTest {
 	@Test
 	@Parameters({ "0.0001", "1", "12.49", "14.99", })
 	public void getShelfPriceTest(final double shelfPrice) {
-		final Item item = new Item(VALID_DESCRIPTOR, new BigDecimal(shelfPrice));
+		final Item item = new Item(VALID_DESCRIPTOR, new BigDecimal(shelfPrice), ItemType.BOOK);
 		assertEquals(new BigDecimal(shelfPrice), item.getShelfPrice());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	@Parameters({ "0", "-0.0001", "-1", "-10" })
 	public void invalidShelfPrice(final double shelfPrice) {
-		new Item(VALID_DESCRIPTOR, new BigDecimal(shelfPrice));
+		new Item(VALID_DESCRIPTOR, new BigDecimal(shelfPrice), ItemType.BOOK);
 	}
 
 	@Test
 	@Parameters({ "music CD", "chocolate bar" })
 	public void getDescriptionTest(final String description) {
-		final Item item = new Item(description, VALID_SHELF_PRICE);
+		final Item item = new Item(description, VALID_SHELF_PRICE, ItemType.BOOK);
 		assertEquals(description, item.getDescription());
 	}
 
 	@Test
 	public void emptyDescriptionTest() {
 		try {
-			new Item("", VALID_SHELF_PRICE);
+			new Item("", VALID_SHELF_PRICE, ItemType.BOOK);
 			fail();
 		} catch (final IllegalArgumentException e) {
 			assertEquals(e.getMessage(), "Description cannot be empty");
@@ -50,11 +50,17 @@ public class ItemTest {
 	@Test
 	public void nullDescriptionTest() {
 		try {
-			new Item(null, VALID_SHELF_PRICE);
+			new Item(null, VALID_SHELF_PRICE, ItemType.BOOK);
 			fail();
 		} catch (final IllegalArgumentException e) {
 			assertEquals(e.getMessage(), "Description cannot be null");
 		}
+	}
+
+	@Test
+	public void getTypeTest() {
+		final Item item = new Item(VALID_DESCRIPTOR, VALID_SHELF_PRICE, ItemType.BOOK);
+		assertEquals(ItemType.BOOK, item.getType());
 	}
 
 }
