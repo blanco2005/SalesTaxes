@@ -2,8 +2,14 @@ package ch.lastminute.item;
 
 public class Item {
 
+	private final double shelfPrice;
+
+	public Item(final double shelfPrice) {
+		this.shelfPrice = shelfPrice;
+	}
+
 	public double getShelfPrice() {
-		return 12.49;
+		return shelfPrice;
 	}
 
 }
