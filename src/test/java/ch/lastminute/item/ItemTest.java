@@ -23,4 +23,9 @@ public class ItemTest {
 		new Item(-10);
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void priceEqualsToZeroTest() {
+		new Item(0);
+	}
+
 }
