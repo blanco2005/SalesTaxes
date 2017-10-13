@@ -1,17 +1,19 @@
 package ch.lastminute.item;
 
+import java.math.BigDecimal;
+
 public class Item {
 
-	private final double shelfPrice;
+	private final BigDecimal shelfPrice;
 
-	public Item(final double shelfPrice) {
-		if (shelfPrice <= 0) {
+	public Item(final BigDecimal shelfPrice) {
+		if (shelfPrice.compareTo(BigDecimal.ZERO) == 0 || shelfPrice.compareTo(BigDecimal.ZERO) < 0) {
 			throw new IllegalArgumentException();
 		}
 		this.shelfPrice = shelfPrice;
 	}
 
-	public double getShelfPrice() {
+	public BigDecimal getShelfPrice() {
 		return shelfPrice;
 	}
 
