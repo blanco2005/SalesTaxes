@@ -24,10 +24,15 @@ public class ItemTest {
 		assertEquals(new BigDecimal(shelfPrice), item.getShelfPrice());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	@Parameters({ "0", "-0.0001", "-1", "-10" })
 	public void invalidShelfPrice(final double shelfPrice) {
-		new Item(VALID_DESCRIPTOR, new BigDecimal(shelfPrice), ItemType.BOOK);
+		try {
+			new Item(VALID_DESCRIPTOR, new BigDecimal(shelfPrice), ItemType.BOOK);
+			fail();
+		} catch (final IllegalArgumentException e) {
+			assertEquals(e.getMessage(), "Shelf price must be greater than zero");
+		}
 	}
 
 	@Test
@@ -63,9 +68,14 @@ public class ItemTest {
 		assertEquals(ItemType.BOOK, item.getType());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void invalidTypeTest() {
-		new Item(VALID_DESCRIPTOR, VALID_SHELF_PRICE, null);
+		try {
+			new Item(VALID_DESCRIPTOR, VALID_SHELF_PRICE, null);
+			fail();
+		} catch (final IllegalArgumentException e) {
+			assertEquals(e.getMessage(), "Item type cannot be null");
+		}
 	}
 
 }
