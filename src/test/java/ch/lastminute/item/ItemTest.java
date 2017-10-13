@@ -36,4 +36,9 @@ public class ItemTest {
 		assertEquals(description, item.getDescription());
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void emptyDescriptionTest() {
+		new Item("", VALID_SHELF_PRICE);
+	}
+
 }
