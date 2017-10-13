@@ -5,7 +5,12 @@ import java.math.BigDecimal;
 public class RoundingPolicy {
 
 	public BigDecimal round(final BigDecimal amount) {
-		return BigDecimal.ZERO;
+		if (amount.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0) {
+			return amount;
+		}
+		else {
+			return null;
+		}
 	}
 
 }
