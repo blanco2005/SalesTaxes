@@ -18,4 +18,9 @@ public class ItemTest {
 		assertEquals(shelfPrice, item.getShelfPrice(), 0);
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void negativePriceTest() {
+		new Item(-10);
+	}
+
 }
