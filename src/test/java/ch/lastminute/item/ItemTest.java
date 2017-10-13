@@ -41,4 +41,9 @@ public class ItemTest {
 		new Item("", VALID_SHELF_PRICE);
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void nullDescriptionTest() {
+		new Item(null, VALID_SHELF_PRICE);
+	}
+
 }

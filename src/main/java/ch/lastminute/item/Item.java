@@ -11,6 +11,9 @@ public class Item {
 		if (shelfPrice.compareTo(BigDecimal.ZERO) == 0 || shelfPrice.compareTo(BigDecimal.ZERO) < 0) {
 			throw new IllegalArgumentException();
 		}
+		if (description == null) {
+			throw new IllegalArgumentException();
+		}
 		if (description.isEmpty()) {
 			throw new IllegalArgumentException();
 		}
