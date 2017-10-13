@@ -4,21 +4,14 @@ import java.math.BigDecimal;
 
 public class Item {
 
-	private BigDecimal shelfPrice;
-	private String description;
+	private final String description;
+	private final BigDecimal shelfPrice;
 
-	public Item() {
-
-	}
-
-	public Item(final String description) {
-		this.description = description;
-	}
-
-	public Item(final BigDecimal shelfPrice) {
+	public Item(final String description, final BigDecimal shelfPrice) {
 		if (shelfPrice.compareTo(BigDecimal.ZERO) == 0 || shelfPrice.compareTo(BigDecimal.ZERO) < 0) {
 			throw new IllegalArgumentException();
 		}
+		this.description = description;
 		this.shelfPrice = shelfPrice;
 	}
 

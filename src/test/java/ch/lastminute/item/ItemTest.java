@@ -13,29 +13,27 @@ import junitparams.Parameters;
 @RunWith(JUnitParamsRunner.class)
 public class ItemTest {
 
+	private final String VALID_DESCRIPTOR = "descriptor";
+	private final BigDecimal VALID_SHELF_PRICE = new BigDecimal(10);
+
 	@Test
 	@Parameters({ "0.0001", "1", "12.49", "14.99", })
 	public void getShelfPriceTest(final double shelfPrice) {
-		final Item item = new Item(new BigDecimal(shelfPrice));
+		final Item item = new Item(VALID_DESCRIPTOR, new BigDecimal(shelfPrice));
 		assertEquals(new BigDecimal(shelfPrice), item.getShelfPrice());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	@Parameters({ "0", "-0.0001", "-1", "-10" })
 	public void invalidShelfPrice(final double shelfPrice) {
-		new Item(new BigDecimal(shelfPrice));
+		new Item(VALID_DESCRIPTOR, new BigDecimal(shelfPrice));
 	}
 
 	@Test
-	public void getDescriptionTest() {
-		final Item item = new Item("description");
-		assertEquals("description", item.getDescription());
-	}
-
-	@Test
-	public void anotherGetDescriptionTest() {
-		final Item item = new Item("description description");
-		assertEquals("description description", item.getDescription());
+	@Parameters({ "description", "description description" })
+	public void getDescriptionTest(final String description) {
+		final Item item = new Item(description, VALID_SHELF_PRICE);
+		assertEquals(description, item.getDescription());
 	}
 
 }
