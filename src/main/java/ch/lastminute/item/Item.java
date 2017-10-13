@@ -5,9 +5,14 @@ import java.math.BigDecimal;
 public class Item {
 
 	private BigDecimal shelfPrice;
+	private String description;
 
 	public Item() {
 
+	}
+
+	public Item(final String description) {
+		this.description = description;
 	}
 
 	public Item(final BigDecimal shelfPrice) {
@@ -22,7 +27,7 @@ public class Item {
 	}
 
 	public String getDescription() {
-		return "description";
+		return description;
 	}
 
 }

@@ -28,8 +28,14 @@ public class ItemTest {
 
 	@Test
 	public void getDescriptionTest() {
-		final Item item = new Item();
+		final Item item = new Item("description");
 		assertEquals("description", item.getDescription());
+	}
+
+	@Test
+	public void anotherGetDescriptionTest() {
+		final Item item = new Item("description description");
+		assertEquals("description description", item.getDescription());
 	}
 
 }
