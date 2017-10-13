@@ -1,6 +1,7 @@
 package ch.lastminute.item;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.math.BigDecimal;
 
@@ -13,7 +14,7 @@ import junitparams.Parameters;
 @RunWith(JUnitParamsRunner.class)
 public class ItemTest {
 
-	private final String VALID_DESCRIPTOR = "descriptor";
+	private final String VALID_DESCRIPTOR = "description";
 	private final BigDecimal VALID_SHELF_PRICE = new BigDecimal(10);
 
 	@Test
@@ -30,20 +31,30 @@ public class ItemTest {
 	}
 
 	@Test
-	@Parameters({ "description", "description description" })
+	@Parameters({ "music CD", "chocolate bar" })
 	public void getDescriptionTest(final String description) {
 		final Item item = new Item(description, VALID_SHELF_PRICE);
 		assertEquals(description, item.getDescription());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void emptyDescriptionTest() {
-		new Item("", VALID_SHELF_PRICE);
+		try {
+			new Item("", VALID_SHELF_PRICE);
+			fail();
+		} catch (final IllegalArgumentException e) {
+			assertEquals(e.getMessage(), "Description cannot be empty");
+		}
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void nullDescriptionTest() {
-		new Item(null, VALID_SHELF_PRICE);
+		try {
+			new Item(null, VALID_SHELF_PRICE);
+			fail();
+		} catch (final IllegalArgumentException e) {
+			assertEquals(e.getMessage(), "Description cannot be null");
+		}
 	}
 
 }

@@ -12,10 +12,10 @@ public class Item {
 			throw new IllegalArgumentException();
 		}
 		if (description == null) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Description cannot be null");
 		}
 		if (description.isEmpty()) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Description cannot be empty");
 		}
 		this.description = description;
 		this.shelfPrice = shelfPrice;
