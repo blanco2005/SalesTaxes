@@ -4,7 +4,11 @@ import java.math.BigDecimal;
 
 public class Item {
 
-	private final BigDecimal shelfPrice;
+	private BigDecimal shelfPrice;
+
+	public Item() {
+
+	}
 
 	public Item(final BigDecimal shelfPrice) {
 		if (shelfPrice.compareTo(BigDecimal.ZERO) == 0 || shelfPrice.compareTo(BigDecimal.ZERO) < 0) {
@@ -15,6 +19,10 @@ public class Item {
 
 	public BigDecimal getShelfPrice() {
 		return shelfPrice;
+	}
+
+	public String getDescription() {
+		return "description";
 	}
 
 }

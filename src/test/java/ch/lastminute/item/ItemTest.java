@@ -26,4 +26,10 @@ public class ItemTest {
 		new Item(new BigDecimal(shelfPrice));
 	}
 
+	@Test
+	public void getDescriptionTest() {
+		final Item item = new Item();
+		assertEquals("description", item.getDescription());
+	}
+
 }
