@@ -38,4 +38,9 @@ public class RoundingTest {
 		assertEquals(new BigDecimal("10.10"), roundingPolicy.round(new BigDecimal("10.1")));
 	}
 
+	@Test
+	public void roundingToUpperTest() {
+		assertEquals(new BigDecimal("1.50"), roundingPolicy.round(new BigDecimal("1.499")));
+	}
+
 }
