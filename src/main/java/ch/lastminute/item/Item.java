@@ -2,6 +2,8 @@ package ch.lastminute.item;
 
 import java.math.BigDecimal;
 
+import ch.lastminute.errors.ErrorMsg;
+
 public class Item {
 
 	/** I assume description can be neither null or empty. **/
@@ -14,16 +16,16 @@ public class Item {
 
 	public Item(final String description, final BigDecimal shelfPrice, final ItemType itemType) {
 		if (shelfPrice.compareTo(BigDecimal.ZERO) == 0 || shelfPrice.compareTo(BigDecimal.ZERO) < 0) {
-			throw new IllegalArgumentException("Shelf price must be greater than zero");
+			throw new IllegalArgumentException(ErrorMsg.INVALID_SHELF_PRICE.toString());
 		}
 		if (description == null) {
-			throw new IllegalArgumentException("Description cannot be null");
+			throw new IllegalArgumentException(ErrorMsg.DESCRIPTION_NULL.toString());
 		}
 		if (description.isEmpty()) {
-			throw new IllegalArgumentException("Description cannot be empty");
+			throw new IllegalArgumentException(ErrorMsg.DESCRIPTION_EMPTY.toString());
 		}
 		if (itemType == null) {
-			throw new IllegalArgumentException("Item type cannot be null");
+			throw new IllegalArgumentException(ErrorMsg.ITEM_TYPE_NULL.toString());
 		}
 		this.description = description;
 		this.shelfPrice = shelfPrice;

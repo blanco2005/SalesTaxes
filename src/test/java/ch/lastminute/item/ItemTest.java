@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import ch.lastminute.errors.ErrorMsg;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
@@ -31,7 +32,7 @@ public class ItemTest {
 			new Item(VALID_DESCRIPTOR, new BigDecimal(shelfPrice), ItemType.BOOK);
 			fail();
 		} catch (final IllegalArgumentException e) {
-			assertEquals(e.getMessage(), "Shelf price must be greater than zero");
+			assertEquals(e.getMessage(), ErrorMsg.INVALID_SHELF_PRICE.toString());
 		}
 	}
 
@@ -48,7 +49,7 @@ public class ItemTest {
 			new Item("", VALID_SHELF_PRICE, ItemType.BOOK);
 			fail();
 		} catch (final IllegalArgumentException e) {
-			assertEquals(e.getMessage(), "Description cannot be empty");
+			assertEquals(e.getMessage(), ErrorMsg.DESCRIPTION_EMPTY.toString());
 		}
 	}
 
@@ -58,7 +59,7 @@ public class ItemTest {
 			new Item(null, VALID_SHELF_PRICE, ItemType.BOOK);
 			fail();
 		} catch (final IllegalArgumentException e) {
-			assertEquals(e.getMessage(), "Description cannot be null");
+			assertEquals(e.getMessage(), ErrorMsg.DESCRIPTION_NULL.toString());
 		}
 	}
 
@@ -74,7 +75,7 @@ public class ItemTest {
 			new Item(VALID_DESCRIPTOR, VALID_SHELF_PRICE, null);
 			fail();
 		} catch (final IllegalArgumentException e) {
-			assertEquals(e.getMessage(), "Item type cannot be null");
+			assertEquals(e.getMessage(), ErrorMsg.ITEM_TYPE_NULL.toString());
 		}
 	}
 
