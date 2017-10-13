@@ -4,26 +4,27 @@ import static org.junit.Assert.assertEquals;
 
 import java.math.BigDecimal;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
+
+@RunWith(JUnitParamsRunner.class)
 public class RoundingTest {
 
-	@Test
-	public void roundingZeroTest() {
-		final RoundingPolicy roundingPolicy = new RoundingPolicy();
-		assertEquals(BigDecimal.ZERO, roundingPolicy.round(BigDecimal.ZERO));
+	RoundingPolicy roundingPolicy;
+
+	@Before
+	public void setUp() {
+		roundingPolicy = new RoundingPolicy();
 	}
 
 	@Test
-	public void roundingOneTest() {
-		final RoundingPolicy roundingPolicy = new RoundingPolicy();
-		assertEquals(BigDecimal.ONE, roundingPolicy.round(BigDecimal.ONE));
-	}
-
-	@Test
-	public void roundingOneWithDecimalsTest() {
-		final RoundingPolicy roundingPolicy = new RoundingPolicy();
-		assertEquals(new BigDecimal(1.0), roundingPolicy.round(new BigDecimal(1.0)));
+	@Parameters({ "1", "1.00", "10" })
+	public void roundingIntegersTest(final double amount) {
+		assertEquals(new BigDecimal(amount), roundingPolicy.round(new BigDecimal(amount)));
 	}
 
 }
