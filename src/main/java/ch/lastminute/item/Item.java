@@ -14,13 +14,16 @@ public class Item {
 
 	public Item(final String description, final BigDecimal shelfPrice, final ItemType itemType) {
 		if (shelfPrice.compareTo(BigDecimal.ZERO) == 0 || shelfPrice.compareTo(BigDecimal.ZERO) < 0) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Shelf price must be greater than zero");
 		}
 		if (description == null) {
 			throw new IllegalArgumentException("Description cannot be null");
 		}
 		if (description.isEmpty()) {
 			throw new IllegalArgumentException("Description cannot be empty");
+		}
+		if (itemType == null) {
+			throw new IllegalArgumentException("Item type cannot be null");
 		}
 		this.description = description;
 		this.shelfPrice = shelfPrice;

@@ -63,4 +63,9 @@ public class ItemTest {
 		assertEquals(ItemType.BOOK, item.getType());
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void invalidTypeTest() {
+		new Item(VALID_DESCRIPTOR, VALID_SHELF_PRICE, null);
+	}
+
 }
