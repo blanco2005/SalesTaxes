@@ -21,7 +21,7 @@ public class ItemTest {
 	@Test
 	@Parameters({ "0.0001", "1", "12.49", "14.99", })
 	public void getShelfPriceTest(final double shelfPrice) {
-		final Item item = new Item(VALID_DESCRIPTOR, new BigDecimal(shelfPrice), ItemType.BOOK);
+		final Item item = new Item(VALID_DESCRIPTOR, new BigDecimal(shelfPrice), ItemType.BOOK, true);
 		assertEquals(new BigDecimal(shelfPrice), item.getShelfPrice());
 	}
 
@@ -29,7 +29,7 @@ public class ItemTest {
 	@Parameters({ "0", "-0.0001", "-1", "-10" })
 	public void invalidShelfPrice(final double shelfPrice) {
 		try {
-			new Item(VALID_DESCRIPTOR, new BigDecimal(shelfPrice), ItemType.BOOK);
+			new Item(VALID_DESCRIPTOR, new BigDecimal(shelfPrice), ItemType.BOOK, true);
 			fail();
 		} catch (final IllegalArgumentException e) {
 			assertEquals(e.getMessage(), ErrorMsg.INVALID_SHELF_PRICE.toString());
@@ -39,14 +39,14 @@ public class ItemTest {
 	@Test
 	@Parameters({ "music CD", "chocolate bar" })
 	public void getDescriptionTest(final String description) {
-		final Item item = new Item(description, VALID_SHELF_PRICE, ItemType.BOOK);
+		final Item item = new Item(description, VALID_SHELF_PRICE, ItemType.BOOK, true);
 		assertEquals(description, item.getDescription());
 	}
 
 	@Test
 	public void emptyDescriptionTest() {
 		try {
-			new Item("", VALID_SHELF_PRICE, ItemType.BOOK);
+			new Item("", VALID_SHELF_PRICE, ItemType.BOOK, true);
 			fail();
 		} catch (final IllegalArgumentException e) {
 			assertEquals(e.getMessage(), ErrorMsg.DESCRIPTION_EMPTY.toString());
@@ -56,7 +56,7 @@ public class ItemTest {
 	@Test
 	public void nullDescriptionTest() {
 		try {
-			new Item(null, VALID_SHELF_PRICE, ItemType.BOOK);
+			new Item(null, VALID_SHELF_PRICE, ItemType.BOOK, true);
 			fail();
 		} catch (final IllegalArgumentException e) {
 			assertEquals(e.getMessage(), ErrorMsg.DESCRIPTION_NULL.toString());
@@ -65,14 +65,14 @@ public class ItemTest {
 
 	@Test
 	public void getTypeTest() {
-		final Item item = new Item(VALID_DESCRIPTOR, VALID_SHELF_PRICE, ItemType.BOOK);
+		final Item item = new Item(VALID_DESCRIPTOR, VALID_SHELF_PRICE, ItemType.BOOK, true);
 		assertEquals(ItemType.BOOK, item.getType());
 	}
 
 	@Test
 	public void invalidTypeTest() {
 		try {
-			new Item(VALID_DESCRIPTOR, VALID_SHELF_PRICE, null);
+			new Item(VALID_DESCRIPTOR, VALID_SHELF_PRICE, null, true);
 			fail();
 		} catch (final IllegalArgumentException e) {
 			assertEquals(e.getMessage(), ErrorMsg.ITEM_TYPE_NULL.toString());
@@ -80,9 +80,15 @@ public class ItemTest {
 	}
 
 	@Test
-	public void getImportedTest() {
-		final Item item = new Item(VALID_DESCRIPTOR, VALID_SHELF_PRICE, ItemType.BOOK);
+	public void getImportedTrueTest() {
+		final Item item = new Item(VALID_DESCRIPTOR, VALID_SHELF_PRICE, ItemType.BOOK, true);
 		assertEquals(item.getImported(), true);
+	}
+
+	@Test
+	public void getImportedFalseTest() {
+		final Item item = new Item(VALID_DESCRIPTOR, VALID_SHELF_PRICE, ItemType.BOOK, false);
+		assertEquals(item.getImported(), false);
 	}
 
 }

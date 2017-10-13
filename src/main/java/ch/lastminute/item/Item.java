@@ -13,8 +13,9 @@ public class Item {
 	/** I use an enum since the different types of items have no differences (same fields, same methods), so a hierarchy it's useless in this
 	 * case. **/
 	private final ItemType itemType;
+	private final boolean imported;
 
-	public Item(final String description, final BigDecimal shelfPrice, final ItemType itemType) {
+	public Item(final String description, final BigDecimal shelfPrice, final ItemType itemType, final boolean imported) {
 		if (shelfPrice.compareTo(BigDecimal.ZERO) == 0 || shelfPrice.compareTo(BigDecimal.ZERO) < 0) {
 			throw new IllegalArgumentException(ErrorMsg.INVALID_SHELF_PRICE.toString());
 		}
@@ -30,6 +31,7 @@ public class Item {
 		this.description = description;
 		this.shelfPrice = shelfPrice;
 		this.itemType = itemType;
+		this.imported = imported;
 	}
 
 	public BigDecimal getShelfPrice() {
@@ -45,7 +47,7 @@ public class Item {
 	}
 
 	public boolean getImported() {
-		return true;
+		return imported;
 	}
 
 }
