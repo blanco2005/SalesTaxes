@@ -3,7 +3,7 @@ package ch.lastminute.errors;
 public enum ErrorMsg {
 
 	INVALID_SHELF_PRICE("Shelf price must be greater than zero"), DESCRIPTION_NULL("Description cannot be null"), DESCRIPTION_EMPTY(
-			"Description cannot be empty"), ITEM_TYPE_NULL("Item cannot be null");
+			"Description cannot be empty"), ITEM_TYPE_NULL("Item cannot be null"), INVALID_ROUNDING("Amount must be greater than zero");
 
 	private final String message;
 

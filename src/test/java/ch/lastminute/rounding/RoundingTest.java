@@ -32,4 +32,9 @@ public class RoundingTest {
 		roundingPolicy.round(BigDecimal.ZERO);
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void roundingNegativeTest() {
+		roundingPolicy.round(new BigDecimal("-10"));
+	}
+
 }
