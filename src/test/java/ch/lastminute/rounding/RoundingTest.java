@@ -29,8 +29,13 @@ public class RoundingTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	@Parameters({ "0", "-1" })
-	public void roundingZeroTest(final double amount) {
+	public void roundingInvalidAmountTest(final double amount) {
 		roundingPolicy.round(new BigDecimal(amount));
+	}
+
+	@Test
+	public void roundingToSameTest() {
+		assertEquals(new BigDecimal("10.10"), roundingPolicy.round(new BigDecimal("10.1")));
 	}
 
 }

@@ -14,7 +14,7 @@ public class RoundingPolicy {
 			return amount;
 		}
 		else {
-			return null;
+			return amount.setScale(2, BigDecimal.ROUND_HALF_UP);
 		}
 	}
 
