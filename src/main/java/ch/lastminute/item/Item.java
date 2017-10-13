@@ -44,4 +44,8 @@ public class Item {
 		return itemType;
 	}
 
+	public boolean getImported() {
+		return true;
+	}
+
 }

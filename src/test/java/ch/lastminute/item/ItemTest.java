@@ -79,4 +79,10 @@ public class ItemTest {
 		}
 	}
 
+	@Test
+	public void getImportedTest() {
+		final Item item = new Item(VALID_DESCRIPTOR, VALID_SHELF_PRICE, ItemType.BOOK);
+		assertEquals(item.getImported(), true);
+	}
+
 }
