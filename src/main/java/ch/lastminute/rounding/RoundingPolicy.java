@@ -11,6 +11,7 @@ public class RoundingPolicy {
 		if (amount.compareTo(BigDecimal.ZERO) == 0 || amount.compareTo(BigDecimal.ZERO) < 0) {
 			throw new IllegalArgumentException(ErrorMsg.INVALID_ROUNDING.toString());
 		}
+		// TODO: refactor me
 		if (amount.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0) {
 			return amount;
 		}
