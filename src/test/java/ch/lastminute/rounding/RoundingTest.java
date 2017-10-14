@@ -53,4 +53,14 @@ public class RoundingTest {
 		assertEquals(new BigDecimal("0.90"), roundingPolicy.round(new BigDecimal("0.875")));
 	}
 
+	@Test
+	public void roundingToLowerCornerCaseTest() {
+		assertEquals(new BigDecimal("0.85"), roundingPolicy.round(new BigDecimal("0.874")));
+	}
+
+	@Test
+	public void roundingToUpperCornerCaseTest() {
+		assertEquals(new BigDecimal("0.90"), roundingPolicy.round(new BigDecimal("0.876")));
+	}
+
 }
