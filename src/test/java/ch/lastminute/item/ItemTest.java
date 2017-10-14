@@ -16,20 +16,20 @@ import junitparams.Parameters;
 public class ItemTest {
 
 	private final String VALID_DESCRIPTOR = "description";
-	private final BigDecimal VALID_SHELF_PRICE = new BigDecimal(10);
+	private final BigDecimal VALID_SHELF_PRICE = BigDecimal.valueOf(10);
 
 	@Test
 	@Parameters({ "0.0001", "1", "12.49", "14.99", })
 	public void getShelfPriceTest(final double shelfPrice) {
-		final Item item = new Item(VALID_DESCRIPTOR, new BigDecimal(shelfPrice), ItemType.BOOK, true);
-		assertEquals(new BigDecimal(shelfPrice), item.getShelfPrice());
+		final Item item = new Item(VALID_DESCRIPTOR, BigDecimal.valueOf(shelfPrice), ItemType.BOOK, true);
+		assertEquals(BigDecimal.valueOf(shelfPrice), item.getShelfPrice());
 	}
 
 	@Test
 	@Parameters({ "0", "-0.0001", "-1", "-10" })
 	public void invalidShelfPrice(final double shelfPrice) {
 		try {
-			new Item(VALID_DESCRIPTOR, new BigDecimal(shelfPrice), ItemType.BOOK, true);
+			new Item(VALID_DESCRIPTOR, BigDecimal.valueOf(shelfPrice), ItemType.BOOK, true);
 			fail();
 		} catch (final IllegalArgumentException e) {
 			assertEquals(e.getMessage(), ErrorMsg.INVALID_SHELF_PRICE.toString());
