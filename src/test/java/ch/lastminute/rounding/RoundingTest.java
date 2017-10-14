@@ -21,46 +21,25 @@ public class RoundingTest {
 		roundingPolicy = new RoundingPolicy();
 	}
 
-	@Test
-	@Parameters({ "1, 1.00", "1.00, 1.00", "10, 10.00" })
-	public void roundingIntegersTest(final double amount, final double expected) {
-		assertEquals(new BigDecimal(expected).setScale(2, BigDecimal.ROUND_UNNECESSARY), roundingPolicy.round(new BigDecimal(amount)));
-	}
-
 	@Test(expected = IllegalArgumentException.class)
 	@Parameters({ "0", "-1" })
 	public void roundingInvalidAmountTest(final double amount) {
-		roundingPolicy.round(new BigDecimal(amount));
+		roundingPolicy.round(BigDecimal.valueOf(amount));
 	}
 
 	@Test
-	public void roundingToSameTest() {
-		assertEquals(new BigDecimal("10.10"), roundingPolicy.round(new BigDecimal("10.1")));
-	}
-
-	@Test
-	public void roundingToUpperTest() {
-		assertEquals(new BigDecimal("1.50"), roundingPolicy.round(new BigDecimal("1.49")));
-	}
-
-	@Test
-	public void roundingToLowerTest() {
-		assertEquals(new BigDecimal("0.00"), roundingPolicy.round(new BigDecimal("0.02")));
-	}
-
-	@Test
-	public void roundingToUpperWhenHalfWayTest() {
-		assertEquals(new BigDecimal("0.90"), roundingPolicy.round(new BigDecimal("0.875")));
-	}
-
-	@Test
-	public void roundingToLowerCornerCaseTest() {
-		assertEquals(new BigDecimal("0.85"), roundingPolicy.round(new BigDecimal("0.874")));
-	}
-
-	@Test
-	public void roundingToUpperCornerCaseTest() {
-		assertEquals(new BigDecimal("0.90"), roundingPolicy.round(new BigDecimal("0.876")));
+	@Parameters({
+			"1, 1.00",
+			"1.00, 1.00",
+			"10, 10.00",
+			"10.10, 10.1",
+			"1.50, 1.49",
+			"0.00, 0.02",
+			"0.90, 0.875",
+			"0.85, 0.874",
+			"0.90, 0.876" })
+	public void roundingToSameTest(final double expected, final double amount) {
+		assertEquals(BigDecimal.valueOf(expected).setScale(2), roundingPolicy.round(BigDecimal.valueOf(amount)));
 	}
 
 }
