@@ -20,19 +20,24 @@ public class StandardTaxCalculator implements TaxCalculator {
 	public BigDecimal calculateTaxes(final Item item) {
 		BigDecimal taxes = BigDecimal.valueOf(0);
 		if (item.getImported()) {
-			final BigDecimal rawTax = item.getShelfPrice().multiply(IMPORT_TAX_RATE).divide(BigDecimal.valueOf(100));
+			final BigDecimal rawTax = computeRawTax(item, IMPORT_TAX_RATE);
 			taxes = taxes.add(roundingPolicy.round(rawTax));
 		}
 		if (isExemedFromBasicTax(item)) {
 			return taxes;
 		}
-		final BigDecimal rawTax = item.getShelfPrice().multiply(BASIC_TAX_RATE).divide(BigDecimal.valueOf(100));
+		final BigDecimal rawTax = computeRawTax(item, BASIC_TAX_RATE);
+		;
 		taxes = taxes.add(roundingPolicy.round(rawTax));
 		return taxes;
 	}
 
 	private boolean isExemedFromBasicTax(final Item item) {
 		return item.getType() == ItemType.BOOK || item.getType() == ItemType.FOOD || item.getType() == ItemType.MEDICAL;
+	}
+
+	private BigDecimal computeRawTax(final Item item, final BigDecimal rate) {
+		return item.getShelfPrice().multiply(rate).divide(BigDecimal.valueOf(100));
 	}
 
 }
