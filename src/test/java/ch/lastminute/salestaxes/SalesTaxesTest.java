@@ -27,6 +27,7 @@ public class SalesTaxesTest {
 	public void bookNotImportedTest() {
 		final Item book = new Item("book", BigDecimal.valueOf(12.49), ItemType.BOOK, false);
 		assertEquals(BigDecimal.valueOf(0), salesTaxes.calculateTaxes(book));
+		Mockito.verify(roundingPolicy, Mockito.never()).round(Mockito.any());
 	}
 
 	@Test
@@ -39,6 +40,7 @@ public class SalesTaxesTest {
 	public void chocolateBarNotImportedTest() {
 		final Item chocolateBar = new Item("chocolate bar", BigDecimal.valueOf(0.85), ItemType.FOOD, false);
 		assertEquals(BigDecimal.valueOf(0), salesTaxes.calculateTaxes(chocolateBar));
+		Mockito.verify(roundingPolicy, Mockito.never()).round(Mockito.any());
 	}
 
 	@Test
