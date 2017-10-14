@@ -22,4 +22,8 @@ public class Order {
 		return shoppingBasket;
 	}
 
+	public void clear() {
+		shoppingBasket.clear();
+	}
+
 }

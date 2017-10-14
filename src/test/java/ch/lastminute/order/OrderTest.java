@@ -46,4 +46,12 @@ public class OrderTest {
 		assertEquals(order.getShoppingBasket().size(), 2);
 	}
 
+	@Test
+	public void orderIsEmptyAfterClearTest() {
+		order.add(item1);
+		order.add(item1);
+		order.clear();
+		assertEquals(order.getShoppingBasket().size(), 0);
+	}
+
 }
