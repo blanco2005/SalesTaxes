@@ -96,4 +96,19 @@ public class OrderTest {
 		Mockito.verify(taxCalculator, Mockito.times(1)).calculateTaxes(item1);
 	}
 
+	@Test
+	public void getTotalCostForInput1Test() {
+		final Item book = new Item("book", BigDecimal.valueOf(12.49), ItemType.BOOK, false);
+		final Item cd = new Item("music cd", BigDecimal.valueOf(14.99), ItemType.OTHER, false);
+		final Item chocolate = new Item("chocolate bar", BigDecimal.valueOf(0.85), ItemType.FOOD, false);
+		order.add(book);
+		order.add(cd);
+		order.add(chocolate);
+		Mockito.when(taxCalculator.calculateTaxes(book)).thenReturn(BigDecimal.valueOf(0));
+		Mockito.when(taxCalculator.calculateTaxes(cd)).thenReturn(BigDecimal.valueOf(1.5));
+		Mockito.when(taxCalculator.calculateTaxes(chocolate)).thenReturn(BigDecimal.valueOf(0));
+		order.processOrder();
+		assertEquals(BigDecimal.valueOf(29.83), order.getTotalCost());
+	}
+
 }

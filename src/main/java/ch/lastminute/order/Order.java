@@ -31,6 +31,14 @@ public class Order {
 		}
 	}
 
+	public Object getTotalCost() {
+		BigDecimal total = BigDecimal.valueOf(0);
+		for (final Item item : shoppingBasket) {
+			total = total.add(item.getShelfPrice().add(item2TaxMap.get(item)));
+		}
+		return total;
+	}
+
 	public void add(final Item item) {
 		shoppingBasket.add(item);
 	}
