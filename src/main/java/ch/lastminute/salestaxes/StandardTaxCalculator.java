@@ -6,16 +6,17 @@ import ch.lastminute.item.Item;
 import ch.lastminute.item.ItemType;
 import ch.lastminute.rounding.RoundingPolicy;
 
-public class SalesTaxes {
+public class StandardTaxCalculator implements TaxCalculator {
 
 	private final BigDecimal IMPORT_TAX_RATE = BigDecimal.valueOf(5);
 	private final BigDecimal BASIC_TAX_RATE = BigDecimal.valueOf(10);
 	private final RoundingPolicy roundingPolicy;
 
-	public SalesTaxes(final RoundingPolicy roundingPolicy) {
+	public StandardTaxCalculator(final RoundingPolicy roundingPolicy) {
 		this.roundingPolicy = roundingPolicy;
 	}
 
+	@Override
 	public BigDecimal calculateTaxes(final Item item) {
 		BigDecimal taxes = BigDecimal.valueOf(0);
 		if (item.getImported()) {

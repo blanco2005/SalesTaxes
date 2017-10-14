@@ -23,13 +23,13 @@ import ch.lastminute.rounding.RoundingPolicy;
 
 public class SalesTaxesTest {
 
-	SalesTaxes salesTaxes;
+	StandardTaxCalculator salesTaxes;
 	RoundingPolicy roundingPolicy;
 
 	@Before
 	public void setUp() {
 		roundingPolicy = mock(RoundingPolicy.class);
-		salesTaxes = new SalesTaxes(roundingPolicy);
+		salesTaxes = new StandardTaxCalculator(roundingPolicy);
 	}
 
 	/** Book **/
