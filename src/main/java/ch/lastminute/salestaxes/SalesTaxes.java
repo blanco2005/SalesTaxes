@@ -9,6 +9,7 @@ import ch.lastminute.rounding.RoundingPolicy;
 public class SalesTaxes {
 
 	private final BigDecimal IMPORT_TAX_RATE = BigDecimal.valueOf(5);
+	private final BigDecimal BASIC_TAX_RATE = BigDecimal.valueOf(10);
 	private final RoundingPolicy roundingPolicy;
 
 	public SalesTaxes(final RoundingPolicy roundingPolicy) {
@@ -21,12 +22,16 @@ public class SalesTaxes {
 			final BigDecimal rawTax = item.getShelfPrice().multiply(IMPORT_TAX_RATE).divide(BigDecimal.valueOf(100));
 			taxes = taxes.add(roundingPolicy.round(rawTax));
 		}
-		if (item.getType() == ItemType.BOOK || item.getType() == ItemType.FOOD) {
+		if (isExemed(item)) {
 			return taxes;
 		}
-		else {
-			return BigDecimal.valueOf(1.5);
-		}
+		final BigDecimal rawTax = item.getShelfPrice().multiply(BASIC_TAX_RATE).divide(BigDecimal.valueOf(100));
+		taxes = taxes.add(roundingPolicy.round(rawTax));
+		return taxes;
+	}
+
+	private boolean isExemed(final Item item) {
+		return item.getType() == ItemType.BOOK || item.getType() == ItemType.FOOD;
 	}
 
 }
