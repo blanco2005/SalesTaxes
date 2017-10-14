@@ -19,7 +19,7 @@ public class StandardTaxCalculator implements TaxCalculator {
 	@Override
 	public BigDecimal calculateTaxes(final Item item) {
 		BigDecimal taxes = BigDecimal.valueOf(0);
-		if (item.getImported()) {
+		if (item.isImported()) {
 			final BigDecimal rawTax = computeRawTax(item, IMPORT_TAX_RATE);
 			taxes = taxes.add(roundingPolicy.round(rawTax));
 		}

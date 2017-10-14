@@ -46,7 +46,7 @@ public class Item {
 		return itemType;
 	}
 
-	public boolean getImported() {
+	public boolean isImported() {
 		return imported;
 	}
 
