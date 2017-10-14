@@ -1,6 +1,8 @@
 package ch.lastminute.item;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.math.BigDecimal;
@@ -23,6 +25,11 @@ public class ItemTest {
 	public void getShelfPriceTest(final double shelfPrice) {
 		final Item item = new Item(VALID_DESCRIPTOR, BigDecimal.valueOf(shelfPrice), ItemType.BOOK, true);
 		assertEquals(BigDecimal.valueOf(shelfPrice), item.getShelfPrice());
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void getShelfPriceTest() {
+		new Item(VALID_DESCRIPTOR, null, ItemType.BOOK, true);
 	}
 
 	@Test
@@ -89,6 +96,53 @@ public class ItemTest {
 	public void getImportedFalseTest() {
 		final Item item = new Item(VALID_DESCRIPTOR, VALID_SHELF_PRICE, ItemType.BOOK, false);
 		assertEquals(item.isImported(), false);
+	}
+
+	@Test
+	public void itemDifferentFromNullTest() {
+		final Item item = new Item(VALID_DESCRIPTOR, VALID_SHELF_PRICE, ItemType.BOOK, false);
+		assertFalse(item.equals(null));
+	}
+
+	@Test
+	public void equalItemsTest() {
+		final Item item = new Item(VALID_DESCRIPTOR, VALID_SHELF_PRICE, ItemType.BOOK, false);
+		final Item item2 = new Item(VALID_DESCRIPTOR, VALID_SHELF_PRICE, ItemType.BOOK, false);
+		assertTrue(item.equals(item2));
+	}
+
+	@Test
+	public void itemDifferentFromOtherKindOfObjectTest() {
+		final Item item = new Item(VALID_DESCRIPTOR, VALID_SHELF_PRICE, ItemType.BOOK, false);
+		assertFalse(item.equals(new Integer(2)));
+	}
+
+	@Test
+	public void itemWithDifferentDescriptionTest() {
+		final Item item = new Item(VALID_DESCRIPTOR, VALID_SHELF_PRICE, ItemType.BOOK, false);
+		final Item item2 = new Item(VALID_DESCRIPTOR + VALID_DESCRIPTOR, VALID_SHELF_PRICE, ItemType.BOOK, false);
+		assertFalse(item.equals(item2));
+	}
+
+	@Test
+	public void itemWithDifferentImportedTest() {
+		final Item item = new Item(VALID_DESCRIPTOR, VALID_SHELF_PRICE, ItemType.BOOK, false);
+		final Item item2 = new Item(VALID_DESCRIPTOR, VALID_SHELF_PRICE, ItemType.BOOK, true);
+		assertFalse(item.equals(item2));
+	}
+
+	@Test
+	public void itemWithDifferentItemTypeTest() {
+		final Item item = new Item(VALID_DESCRIPTOR, VALID_SHELF_PRICE, ItemType.BOOK, true);
+		final Item item2 = new Item(VALID_DESCRIPTOR, VALID_SHELF_PRICE, ItemType.MEDICAL, true);
+		assertFalse(item.equals(item2));
+	}
+
+	@Test
+	public void itemWithDifferentShelfPriceTest() {
+		final Item item = new Item(VALID_DESCRIPTOR, VALID_SHELF_PRICE, ItemType.BOOK, true);
+		final Item item2 = new Item(VALID_DESCRIPTOR, VALID_SHELF_PRICE.add(VALID_SHELF_PRICE), ItemType.BOOK, true);
+		assertFalse(item.equals(item2));
 	}
 
 }
