@@ -13,7 +13,7 @@ public class StandardRoundingPolicy implements RoundingPolicy {
 			throw new IllegalArgumentException(ErrorMsg.INVALID_ROUNDING.toString());
 		}
 
-		return new BigDecimal((double) Math.round(amount.doubleValue() * 20) / 20)
+		return BigDecimal.valueOf((double) Math.round(amount.doubleValue() * 20) / 20)
 				.setScale(2, RoundingMode.HALF_UP);
 	}
 
