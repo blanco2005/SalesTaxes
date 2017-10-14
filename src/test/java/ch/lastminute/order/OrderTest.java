@@ -153,7 +153,8 @@ public class OrderTest {
 		Mockito.when(taxCalculator.calculateTaxes(cd)).thenReturn(BigDecimal.valueOf(1.5));
 		Mockito.when(taxCalculator.calculateTaxes(chocolate)).thenReturn(BigDecimal.valueOf(0));
 		order.processOrder();
-		assertEquals(BigDecimal.valueOf(1.50), order.getTotalTaxes());
+		System.out.println(order.getTotalTaxes());
+		assertEquals(BigDecimal.valueOf(1.50).setScale(2), order.getTotalTaxes());
 	}
 
 	@Test
@@ -183,12 +184,33 @@ public class OrderTest {
 		Mockito.when(taxCalculator.calculateTaxes(pills)).thenReturn(BigDecimal.valueOf(0));
 		Mockito.when(taxCalculator.calculateTaxes(chocolate)).thenReturn(BigDecimal.valueOf(0.6));
 		order.processOrder();
-		assertEquals(BigDecimal.valueOf(6.70), order.getTotalTaxes());
+		assertEquals(BigDecimal.valueOf(6.70).setScale(2), order.getTotalTaxes());
 	}
 
 	@Test(expected = IllegalStateException.class)
 	public void getReceiptForEmptyOrder() {
 		order.toString();
+	}
+
+	@Test
+	public void getReceiptForInput1Order() {
+		final Item book = new Item("book", BigDecimal.valueOf(12.49), ItemType.BOOK, false);
+		final Item cd = new Item("music CD", BigDecimal.valueOf(14.99), ItemType.OTHER, false);
+		final Item chocolate = new Item("chocolate bar", BigDecimal.valueOf(0.85), ItemType.FOOD, false);
+		order.add(book);
+		order.add(cd);
+		order.add(chocolate);
+		Mockito.when(taxCalculator.calculateTaxes(book)).thenReturn(BigDecimal.valueOf(0));
+		Mockito.when(taxCalculator.calculateTaxes(cd)).thenReturn(BigDecimal.valueOf(1.5));
+		Mockito.when(taxCalculator.calculateTaxes(chocolate)).thenReturn(BigDecimal.valueOf(0));
+		order.processOrder();
+		final StringBuilder sb = new StringBuilder();
+		sb.append("1 book: 12.49\n");
+		sb.append("1 music CD: 16.49\n");
+		sb.append("1 chocolate bar: 0.85\n");
+		sb.append("Sales Taxes: 1.50\n");
+		sb.append("Total: 29.83");
+		assertEquals(sb.toString(), order.toString());
 	}
 
 }

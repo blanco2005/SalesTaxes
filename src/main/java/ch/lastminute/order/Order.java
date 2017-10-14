@@ -31,20 +31,20 @@ public class Order {
 		}
 	}
 
-	public Object getTotalCost() {
+	public BigDecimal getTotalCost() {
 		BigDecimal total = BigDecimal.valueOf(0);
 		for (final Item item : shoppingBasket) {
 			total = total.add(item.getShelfPrice().add(item2TaxMap.get(item)));
 		}
-		return total;
+		return total.setScale(2);
 	}
 
-	public Object getTotalTaxes() {
+	public BigDecimal getTotalTaxes() {
 		BigDecimal totalTaxes = BigDecimal.valueOf(0);
 		for (final Item item : shoppingBasket) {
 			totalTaxes = totalTaxes.add(item2TaxMap.get(item));
 		}
-		return totalTaxes;
+		return totalTaxes.setScale(2);
 	}
 
 	@Override
@@ -52,7 +52,24 @@ public class Order {
 		if (shoppingBasket.isEmpty()) {
 			throw new IllegalStateException("The order is empty!");
 		}
-		return null;
+		final StringBuilder sb = new StringBuilder();
+		for (final Item item : shoppingBasket) {
+			sb.append("1");
+			sb.append(" ");
+			sb.append(item.getDescription());
+			sb.append(":");
+			sb.append(" ");
+			sb.append(item.getShelfPrice().add(item2TaxMap.get(item)));
+			sb.append("\n");
+		}
+		sb.append("Sales Taxes:");
+		sb.append(" ");
+		sb.append(getTotalTaxes());
+		sb.append("\n");
+		sb.append("Total:");
+		sb.append(" ");
+		sb.append(getTotalCost());
+		return sb.toString();
 	}
 
 	public void add(final Item item) {
