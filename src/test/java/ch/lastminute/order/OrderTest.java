@@ -83,8 +83,16 @@ public class OrderTest {
 		order.add(item1);
 		Mockito.when(taxCalculator.calculateTaxes(item1)).thenReturn(BigDecimal.valueOf(0.5));
 		order.processOrder();
-		final BigDecimal tax = order.getItemToTaxMap().get(item1);
-		assertEquals(tax, BigDecimal.valueOf(0.5));
+		assertEquals(order.getItemToTaxMap().get(item1), BigDecimal.valueOf(0.5));
+		Mockito.verify(taxCalculator, Mockito.times(1)).calculateTaxes(item1);
+	}
+
+	@Test
+	public void processCartWithDuplicatedItemsComputesTaxesOnlyOnceTest() {
+		order.add(item1);
+		order.add(item1);
+		Mockito.when(taxCalculator.calculateTaxes(item1)).thenReturn(BigDecimal.valueOf(0.5));
+		order.processOrder();
 		Mockito.verify(taxCalculator, Mockito.times(1)).calculateTaxes(item1);
 	}
 

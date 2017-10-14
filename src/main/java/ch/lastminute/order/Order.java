@@ -22,6 +22,15 @@ public class Order {
 		this.taxCalculator = taxCalculator;
 	}
 
+	public void processOrder() {
+		for (final Item item : shoppingBasket) {
+			if (item2TaxMap.containsKey(item)) {
+				continue;
+			}
+			item2TaxMap.put(item, taxCalculator.calculateTaxes(item));
+		}
+	}
+
 	public void add(final Item item) {
 		shoppingBasket.add(item);
 	}
@@ -36,12 +45,6 @@ public class Order {
 
 	public void removeItem(final Item item) {
 		shoppingBasket.remove(item);
-	}
-
-	public void processOrder() {
-		for (final Item item : shoppingBasket) {
-			item2TaxMap.put(item, taxCalculator.calculateTaxes(item));
-		}
 	}
 
 	public Map<Item, BigDecimal> getItemToTaxMap() {
