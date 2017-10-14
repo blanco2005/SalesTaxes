@@ -14,11 +14,11 @@ import junitparams.Parameters;
 @RunWith(JUnitParamsRunner.class)
 public class RoundingTest {
 
-	RoundingPolicy roundingPolicy;
+	StandardRoundingPolicy roundingPolicy;
 
 	@Before
 	public void setUp() {
-		roundingPolicy = new RoundingPolicy();
+		roundingPolicy = new StandardRoundingPolicy();
 	}
 
 	@Test(expected = IllegalArgumentException.class)
