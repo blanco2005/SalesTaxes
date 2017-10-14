@@ -22,9 +22,9 @@ public class RoundingTest {
 	}
 
 	@Test
-	@Parameters({ "1", "1.00", "10" })
-	public void roundingIntegersTest(final double amount) {
-		assertEquals(new BigDecimal(amount), roundingPolicy.round(new BigDecimal(amount)));
+	@Parameters({ "1, 1.00", "1.00, 1.00", "10, 10.00" })
+	public void roundingIntegersTest(final double amount, final double expected) {
+		assertEquals(new BigDecimal(expected).setScale(2, BigDecimal.ROUND_UNNECESSARY), roundingPolicy.round(new BigDecimal(amount)));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -40,14 +40,14 @@ public class RoundingTest {
 
 	@Test
 	public void roundingToUpperTest() {
-		assertEquals(new BigDecimal("1.50"), roundingPolicy.round(new BigDecimal("1.499")));
+		assertEquals(new BigDecimal("1.50"), roundingPolicy.round(new BigDecimal("1.49")));
 	}
 
 	@Test
 	public void roundingToLowerTest() {
 		assertEquals(new BigDecimal("0.00"), roundingPolicy.round(new BigDecimal("0.02")));
 	}
-	
+
 	@Test
 	public void roundingToUpperWhenHalfWayTest() {
 		assertEquals(new BigDecimal("0.90"), roundingPolicy.round(new BigDecimal("0.875")));
