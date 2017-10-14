@@ -72,9 +72,17 @@ public class SalesTaxesTest {
 
 	@Test
 	public void pillsNotImportedTest() {
-		final Item perfume = new Item("pills", BigDecimal.valueOf(9.75), ItemType.MEDICAL, false);
-		assertEquals(BigDecimal.valueOf(0), salesTaxes.calculateTaxes(perfume));
+		final Item pills = new Item("pills", BigDecimal.valueOf(9.75), ItemType.MEDICAL, false);
+		assertEquals(BigDecimal.valueOf(0), salesTaxes.calculateTaxes(pills));
 		Mockito.verify(roundingPolicy, Mockito.never()).round(Mockito.any());
+	}
+
+	@Test
+	public void pillsImportedTest() {
+		final Item pills = new Item("pills", BigDecimal.valueOf(9.75), ItemType.MEDICAL, true);
+		Mockito.when(roundingPolicy.round(BigDecimal.valueOf(0.4875))).thenReturn(BigDecimal.valueOf(0.5));
+		assertEquals(BigDecimal.valueOf(0.5), salesTaxes.calculateTaxes(pills));
+		Mockito.verify(roundingPolicy, Mockito.times(1)).round(Mockito.any());
 	}
 
 	/** Other **/
