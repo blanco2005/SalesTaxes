@@ -34,11 +34,13 @@ public class RoundingTest {
 			"10, 10.00",
 			"10.10, 10.1",
 			"1.50, 1.49",
-			"0.00, 0.02",
+			"0.05, 0.02",
 			"0.90, 0.875",
-			"0.85, 0.874",
-			"0.90, 0.876" })
-	public void roundingToSameTest(final double expected, final double amount) {
+			"0.90, 0.874",
+			"0.90, 0.876",
+			"0.60, 0.5625",
+			"0.05, 0.0001" })
+	public void roundingTest(final double expected, final double amount) {
 		assertEquals(BigDecimal.valueOf(expected).setScale(2), roundingPolicy.round(BigDecimal.valueOf(amount)));
 	}
 

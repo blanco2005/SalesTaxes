@@ -86,4 +86,12 @@ public class SalesTaxesTest {
 		Mockito.verify(roundingPolicy, Mockito.never()).round(Mockito.any());
 	}
 
+	@Test
+	public void anotherboxChocolateImportedTest() {
+		final Item chocolateBar = new Item("chocolate bar", BigDecimal.valueOf(11.25), ItemType.FOOD, true);
+		Mockito.when(roundingPolicy.round(BigDecimal.valueOf(0.5625))).thenReturn(BigDecimal.valueOf(0.55));
+		assertEquals(BigDecimal.valueOf(0.60), salesTaxes.calculateTaxes(chocolateBar));
+		Mockito.verify(roundingPolicy, Mockito.times(1)).round(Mockito.any());
+	}
+
 }
