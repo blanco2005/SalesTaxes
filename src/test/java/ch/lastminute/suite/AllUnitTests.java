@@ -1,4 +1,4 @@
-package ch.lastminute.unit.suite;
+package ch.lastminute.suite;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -16,6 +16,6 @@ import ch.lastminute.salestaxes.StandardTaxCalculatorTest;
 		StandardTaxCalculatorTest.class,
 		OrderTest.class
 })
-public class AllTests {
+public class AllUnitTests {
 
 }
