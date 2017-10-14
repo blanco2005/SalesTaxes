@@ -7,14 +7,19 @@ import java.util.List;
 import java.util.Map;
 
 import ch.lastminute.item.Item;
+import ch.lastminute.salestaxes.TaxCalculator;
 
 public class Order {
 
 	/** List since in general we can have multiple instances of the same item. **/
-	List<Item> shoppingBasket;
+	private final List<Item> shoppingBasket;
+	private final Map<Item, BigDecimal> item2TaxMap;
+	private final TaxCalculator taxCalculator;
 
-	public Order() {
+	public Order(final TaxCalculator taxCalculator) {
 		shoppingBasket = new LinkedList<>();
+		item2TaxMap = new HashMap<>();
+		this.taxCalculator = taxCalculator;
 	}
 
 	public void add(final Item item) {
@@ -34,11 +39,13 @@ public class Order {
 	}
 
 	public void processOrder() {
-
+		for (final Item item : shoppingBasket) {
+			item2TaxMap.put(item, taxCalculator.calculateTaxes(item));
+		}
 	}
 
 	public Map<Item, BigDecimal> getItemToTaxMap() {
-		return new HashMap<>();
+		return item2TaxMap;
 	}
 
 }

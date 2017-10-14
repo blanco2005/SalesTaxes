@@ -12,7 +12,7 @@ import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
 @RunWith(JUnitParamsRunner.class)
-public class RoundingTest {
+public class StandardRoundingPolicyTest {
 
 	StandardRoundingPolicy roundingPolicy;
 

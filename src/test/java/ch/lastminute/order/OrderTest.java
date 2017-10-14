@@ -7,18 +7,22 @@ import java.math.BigDecimal;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import ch.lastminute.item.Item;
 import ch.lastminute.item.ItemType;
+import ch.lastminute.salestaxes.TaxCalculator;
 
 public class OrderTest {
 
 	Order order;
 	Item item1;
+	TaxCalculator taxCalculator;
 
 	@Before
 	public void setUp() {
-		order = new Order();
+		taxCalculator = Mockito.mock(TaxCalculator.class);
+		order = new Order(taxCalculator);
 		item1 = new Item("description", BigDecimal.valueOf(10), ItemType.BOOK, true);
 	}
 
@@ -62,9 +66,26 @@ public class OrderTest {
 	}
 
 	@Test
-	public void processEmptyCarTest() {
+	public void processEmptyCartTest() {
 		order.processOrder();
 		assertEquals(order.getItemToTaxMap().size(), 0);
+	}
+
+	@Test
+	public void processNonEmptyCartLeadToNonEmptyTaxMapTest() {
+		order.add(item1);
+		order.processOrder();
+		assertEquals(order.getItemToTaxMap().size(), 1);
+	}
+
+	@Test
+	public void processNonEmptyCartLeadToCorrectTaxMapTest() {
+		order.add(item1);
+		Mockito.when(taxCalculator.calculateTaxes(item1)).thenReturn(BigDecimal.valueOf(0.5));
+		order.processOrder();
+		final BigDecimal tax = order.getItemToTaxMap().get(item1);
+		assertEquals(tax, BigDecimal.valueOf(0.5));
+		Mockito.verify(taxCalculator, Mockito.times(1)).calculateTaxes(item1);
 	}
 
 }

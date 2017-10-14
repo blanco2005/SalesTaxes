@@ -5,14 +5,14 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import ch.lastminute.item.ItemTest;
-import ch.lastminute.rounding.RoundingTest;
-import ch.lastminute.salestaxes.SalesTaxesTest;
+import ch.lastminute.rounding.StandardRoundingPolicyTest;
+import ch.lastminute.salestaxes.StandardTaxCalculatorTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({
 		ItemTest.class,
-		RoundingTest.class,
-		SalesTaxesTest.class
+		StandardRoundingPolicyTest.class,
+		StandardTaxCalculatorTest.class
 })
 public class AllTests {
 

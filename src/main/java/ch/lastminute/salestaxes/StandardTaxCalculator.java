@@ -27,7 +27,6 @@ public class StandardTaxCalculator implements TaxCalculator {
 			return taxes;
 		}
 		final BigDecimal rawTax = computeRawTax(item, BASIC_TAX_RATE);
-		;
 		taxes = taxes.add(roundingPolicy.round(rawTax));
 		return taxes;
 	}

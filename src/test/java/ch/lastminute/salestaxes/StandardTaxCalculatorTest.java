@@ -21,7 +21,7 @@ import ch.lastminute.rounding.RoundingPolicy;
  * does not cover all the possible cases. In particular, it does not provide example for the <Book, imported> and <Medical, not imported>
  * cases. I derived two test cases for such cases to cover all the possible cases. */
 
-public class SalesTaxesTest {
+public class StandardTaxCalculatorTest {
 
 	StandardTaxCalculator salesTaxes;
 	RoundingPolicy roundingPolicy;
