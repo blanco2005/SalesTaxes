@@ -54,4 +54,17 @@ public class OrderTest {
 		assertEquals(order.getShoppingBasket().size(), 0);
 	}
 
+	@Test
+	public void removeElementTest() {
+		order.add(item1);
+		order.removeItem(item1);
+		assertEquals(order.getShoppingBasket().size(), 0);
+	}
+
+	@Test
+	public void processEmptyCarTest() {
+		order.processOrder();
+		assertEquals(order.getItemToTaxMap().size(), 0);
+	}
+
 }

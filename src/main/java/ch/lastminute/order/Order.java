@@ -1,7 +1,10 @@
 package ch.lastminute.order;
 
+import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import ch.lastminute.item.Item;
 
@@ -24,6 +27,18 @@ public class Order {
 
 	public void clear() {
 		shoppingBasket.clear();
+	}
+
+	public void removeItem(final Item item) {
+		shoppingBasket.remove(item);
+	}
+
+	public void processOrder() {
+
+	}
+
+	public Map<Item, BigDecimal> getItemToTaxMap() {
+		return new HashMap<>();
 	}
 
 }
