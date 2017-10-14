@@ -229,4 +229,29 @@ public class OrderTest {
 		assertEquals(sb.toString(), order.toString());
 	}
 
+	@Test
+	public void getReceiptForInput3Test() {
+		final Item perfum = new Item("imported bottle of perfume", BigDecimal.valueOf(27.99), ItemType.OTHER, true);
+		final Item notImportedPerfum = new Item("bottle of perfume", BigDecimal.valueOf(18.99), ItemType.OTHER, false);
+		final Item pills = new Item("packet of headache pills", BigDecimal.valueOf(9.75), ItemType.MEDICAL, false);
+		final Item chocolate = new Item("imported box of chocolates", BigDecimal.valueOf(11.25), ItemType.FOOD, true);
+		order.add(perfum);
+		order.add(notImportedPerfum);
+		order.add(pills);
+		order.add(chocolate);
+		Mockito.when(taxCalculator.calculateTaxes(perfum)).thenReturn(BigDecimal.valueOf(4.2));
+		Mockito.when(taxCalculator.calculateTaxes(notImportedPerfum)).thenReturn(BigDecimal.valueOf(1.90));
+		Mockito.when(taxCalculator.calculateTaxes(pills)).thenReturn(BigDecimal.valueOf(0));
+		Mockito.when(taxCalculator.calculateTaxes(chocolate)).thenReturn(BigDecimal.valueOf(0.6));
+		order.processOrder();
+		final StringBuilder sb = new StringBuilder();
+		sb.append("1 imported bottle of perfume: 32.19\n");
+		sb.append("1 bottle of perfume: 20.89\n");
+		sb.append("1 packet of headache pills: 9.75\n");
+		sb.append("1 imported box of chocolates: 11.85\n");
+		sb.append("Sales Taxes: 6.70\n");
+		sb.append("Total: 74.68");
+		assertEquals(sb.toString(), order.toString());
+	}
+
 }
