@@ -59,7 +59,7 @@ public class Order {
 			sb.append(item.getDescription());
 			sb.append(":");
 			sb.append(" ");
-			sb.append(item.getShelfPrice().add(item2TaxMap.get(item)));
+			sb.append(item.getShelfPrice().add(item2TaxMap.get(item)).setScale(2));
 			sb.append("\n");
 		}
 		sb.append("Sales Taxes:");

@@ -153,7 +153,6 @@ public class OrderTest {
 		Mockito.when(taxCalculator.calculateTaxes(cd)).thenReturn(BigDecimal.valueOf(1.5));
 		Mockito.when(taxCalculator.calculateTaxes(chocolate)).thenReturn(BigDecimal.valueOf(0));
 		order.processOrder();
-		System.out.println(order.getTotalTaxes());
 		assertEquals(BigDecimal.valueOf(1.50).setScale(2), order.getTotalTaxes());
 	}
 
@@ -210,6 +209,23 @@ public class OrderTest {
 		sb.append("1 chocolate bar: 0.85\n");
 		sb.append("Sales Taxes: 1.50\n");
 		sb.append("Total: 29.83");
+		assertEquals(sb.toString(), order.toString());
+	}
+
+	@Test
+	public void getReceiptForInput2Test() {
+		final Item chocolate = new Item("imported box of chocolates", BigDecimal.valueOf(10.00), ItemType.BOOK, true);
+		final Item perfum = new Item("imported bottle of perfume", BigDecimal.valueOf(47.50), ItemType.OTHER, true);
+		order.add(chocolate);
+		order.add(perfum);
+		Mockito.when(taxCalculator.calculateTaxes(chocolate)).thenReturn(BigDecimal.valueOf(0.5));
+		Mockito.when(taxCalculator.calculateTaxes(perfum)).thenReturn(BigDecimal.valueOf(7.15));
+		order.processOrder();
+		final StringBuilder sb = new StringBuilder();
+		sb.append("1 imported box of chocolates: 10.50\n");
+		sb.append("1 imported bottle of perfume: 54.65\n");
+		sb.append("Sales Taxes: 7.65\n");
+		sb.append("Total: 65.15");
 		assertEquals(sb.toString(), order.toString());
 	}
 
