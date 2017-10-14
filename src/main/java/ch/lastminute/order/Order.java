@@ -39,6 +39,14 @@ public class Order {
 		return total;
 	}
 
+	public Object getTotalTaxes() {
+		BigDecimal totalTaxes = BigDecimal.valueOf(0);
+		for (final Item item : shoppingBasket) {
+			totalTaxes = totalTaxes.add(item2TaxMap.get(item));
+		}
+		return totalTaxes;
+	}
+
 	public void add(final Item item) {
 		shoppingBasket.add(item);
 	}
