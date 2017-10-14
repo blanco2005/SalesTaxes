@@ -156,4 +156,34 @@ public class OrderTest {
 		assertEquals(BigDecimal.valueOf(1.50), order.getTotalTaxes());
 	}
 
+	@Test
+	public void getTotalTaxesForInput2Test() {
+		final Item chocolate = new Item("chocolate", BigDecimal.valueOf(10.00), ItemType.BOOK, true);
+		final Item perfum = new Item("perfum", BigDecimal.valueOf(47.50), ItemType.OTHER, true);
+		order.add(chocolate);
+		order.add(perfum);
+		Mockito.when(taxCalculator.calculateTaxes(chocolate)).thenReturn(BigDecimal.valueOf(0.5));
+		Mockito.when(taxCalculator.calculateTaxes(perfum)).thenReturn(BigDecimal.valueOf(7.15));
+		order.processOrder();
+		assertEquals(BigDecimal.valueOf(7.65), order.getTotalTaxes());
+	}
+
+	@Test
+	public void getTotalTaxesForInput3Test() {
+		final Item perfum = new Item("perfum", BigDecimal.valueOf(27.99), ItemType.OTHER, true);
+		final Item notImportedPerfum = new Item("perfum", BigDecimal.valueOf(18.99), ItemType.OTHER, false);
+		final Item pills = new Item("pills", BigDecimal.valueOf(9.75), ItemType.MEDICAL, false);
+		final Item chocolate = new Item("chocolates", BigDecimal.valueOf(11.25), ItemType.FOOD, true);
+		order.add(perfum);
+		order.add(notImportedPerfum);
+		order.add(pills);
+		order.add(chocolate);
+		Mockito.when(taxCalculator.calculateTaxes(perfum)).thenReturn(BigDecimal.valueOf(4.2));
+		Mockito.when(taxCalculator.calculateTaxes(notImportedPerfum)).thenReturn(BigDecimal.valueOf(1.90));
+		Mockito.when(taxCalculator.calculateTaxes(pills)).thenReturn(BigDecimal.valueOf(0));
+		Mockito.when(taxCalculator.calculateTaxes(chocolate)).thenReturn(BigDecimal.valueOf(0.6));
+		order.processOrder();
+		assertEquals(BigDecimal.valueOf(6.70), order.getTotalTaxes());
+	}
+
 }
