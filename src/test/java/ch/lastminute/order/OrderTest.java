@@ -111,4 +111,16 @@ public class OrderTest {
 		assertEquals(BigDecimal.valueOf(29.83), order.getTotalCost());
 	}
 
+	@Test
+	public void getTotalCostForInput2Test() {
+		final Item chocolate = new Item("chocolate", BigDecimal.valueOf(10.00), ItemType.BOOK, true);
+		final Item perfum = new Item("perfum", BigDecimal.valueOf(47.50), ItemType.OTHER, true);
+		order.add(chocolate);
+		order.add(perfum);
+		Mockito.when(taxCalculator.calculateTaxes(chocolate)).thenReturn(BigDecimal.valueOf(0.5));
+		Mockito.when(taxCalculator.calculateTaxes(perfum)).thenReturn(BigDecimal.valueOf(7.15));
+		order.processOrder();
+		assertEquals(BigDecimal.valueOf(65.15), order.getTotalCost());
+	}
+
 }
