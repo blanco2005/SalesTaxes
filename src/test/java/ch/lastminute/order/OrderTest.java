@@ -1,6 +1,7 @@
 package ch.lastminute.order;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
 
@@ -28,6 +29,13 @@ public class OrderTest {
 	public void nonEmptyOrderTest() {
 		order.add(new Item("description", BigDecimal.valueOf(10), ItemType.BOOK, true));
 		assertEquals(order.getShoppingBasket().size(), 1);
+	}
+
+	@Test
+	public void orderContainsInsertedObjectsTest() {
+		final Item item = new Item("description", BigDecimal.valueOf(10), ItemType.BOOK, true);
+		order.add(item);
+		assertTrue(order.getShoppingBasket().contains(item));
 	}
 
 }

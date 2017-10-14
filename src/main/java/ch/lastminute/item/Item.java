@@ -50,4 +50,52 @@ public class Item {
 		return imported;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (description == null ? 0 : description.hashCode());
+		result = prime * result + (imported ? 1231 : 1237);
+		result = prime * result + (itemType == null ? 0 : itemType.hashCode());
+		result = prime * result + (shelfPrice == null ? 0 : shelfPrice.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(final Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final Item other = (Item) obj;
+		if (description == null) {
+			if (other.description != null) {
+				return false;
+			}
+		}
+		else if (!description.equals(other.description)) {
+			return false;
+		}
+		if (imported != other.imported) {
+			return false;
+		}
+		if (itemType != other.itemType) {
+			return false;
+		}
+		if (shelfPrice == null) {
+			if (other.shelfPrice != null) {
+				return false;
+			}
+		}
+		else if (!shelfPrice.equals(other.shelfPrice)) {
+			return false;
+		}
+		return true;
+	}
+
 }
