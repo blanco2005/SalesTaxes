@@ -8,7 +8,7 @@ import ch.lastminute.item.ItemType;
 public class SalesTaxes {
 
 	public BigDecimal calculateTaxes(final Item item) {
-		if (item.getType() == ItemType.BOOK) {
+		if (item.getType() == ItemType.BOOK || item.getType() == ItemType.FOOD) {
 			return BigDecimal.valueOf(0);
 		}
 		else {

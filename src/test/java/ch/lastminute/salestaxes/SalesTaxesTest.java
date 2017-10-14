@@ -31,4 +31,10 @@ public class SalesTaxesTest {
 		assertEquals(BigDecimal.valueOf(1.5), salesTaxes.calculateTaxes(cd));
 	}
 
+	@Test
+	public void chocolateBarNotImportedTest() {
+		final Item chocolateBar = new Item("chocolate bar", BigDecimal.valueOf(0.85), ItemType.FOOD, false);
+		assertEquals(BigDecimal.valueOf(0), salesTaxes.calculateTaxes(chocolateBar));
+	}
+
 }
