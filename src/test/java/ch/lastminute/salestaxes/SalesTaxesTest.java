@@ -6,17 +6,21 @@ import java.math.BigDecimal;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import ch.lastminute.item.Item;
 import ch.lastminute.item.ItemType;
+import ch.lastminute.rounding.RoundingPolicy;
 
 public class SalesTaxesTest {
 
 	SalesTaxes salesTaxes;
+	RoundingPolicy roundingPolicy;
 
 	@Before
 	public void setUp() {
-		salesTaxes = new SalesTaxes();
+		roundingPolicy = Mockito.mock(RoundingPolicy.class);
+		salesTaxes = new SalesTaxes(roundingPolicy);
 	}
 
 	@Test
@@ -35,6 +39,14 @@ public class SalesTaxesTest {
 	public void chocolateBarNotImportedTest() {
 		final Item chocolateBar = new Item("chocolate bar", BigDecimal.valueOf(0.85), ItemType.FOOD, false);
 		assertEquals(BigDecimal.valueOf(0), salesTaxes.calculateTaxes(chocolateBar));
+	}
+
+	@Test
+	public void chocolateBarImportedTest() {
+		final Item chocolateBar = new Item("chocolate bar", BigDecimal.valueOf(10), ItemType.FOOD, true);
+		Mockito.when(roundingPolicy.round(BigDecimal.valueOf(0.5))).thenReturn(BigDecimal.valueOf(0.5));
+		assertEquals(BigDecimal.valueOf(0.50), salesTaxes.calculateTaxes(chocolateBar));
+		Mockito.verify(roundingPolicy, Mockito.times(1)).round(BigDecimal.valueOf(0.5));
 	}
 
 }
