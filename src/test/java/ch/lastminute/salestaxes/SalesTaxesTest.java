@@ -12,6 +12,10 @@ import ch.lastminute.item.Item;
 import ch.lastminute.item.ItemType;
 import ch.lastminute.rounding.RoundingPolicy;
 
+/** To derive test cases for the SalesTaxes class I initially considered the examples given in the specification. However, the specification
+ * does not cover all the possible cases. In particular, it does not provide example for the <Book, imported> and <Medical, not imported>
+ * cases. I derived two test cases for such cases to cover all the possible cases. */
+
 public class SalesTaxesTest {
 
 	SalesTaxes salesTaxes;
@@ -29,6 +33,14 @@ public class SalesTaxesTest {
 		final Item book = new Item("book", BigDecimal.valueOf(12.49), ItemType.BOOK, false);
 		assertEquals(BigDecimal.valueOf(0), salesTaxes.calculateTaxes(book));
 		Mockito.verify(roundingPolicy, Mockito.never()).round(Mockito.any());
+	}
+
+	@Test
+	public void bookImportedTest() {
+		final Item book = new Item("book", BigDecimal.valueOf(12.49), ItemType.BOOK, true);
+		Mockito.when(roundingPolicy.round(BigDecimal.valueOf(0.6245))).thenReturn(BigDecimal.valueOf(0.65));
+		assertEquals(BigDecimal.valueOf(0.65), salesTaxes.calculateTaxes(book));
+		Mockito.verify(roundingPolicy, Mockito.times(1)).round(Mockito.any());
 	}
 
 	/** Food **/
