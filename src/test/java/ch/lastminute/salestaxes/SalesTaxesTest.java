@@ -23,6 +23,7 @@ public class SalesTaxesTest {
 		salesTaxes = new SalesTaxes(roundingPolicy);
 	}
 
+	/** Book **/
 	@Test
 	public void bookNotImportedTest() {
 		final Item book = new Item("book", BigDecimal.valueOf(12.49), ItemType.BOOK, false);
@@ -30,13 +31,7 @@ public class SalesTaxesTest {
 		Mockito.verify(roundingPolicy, Mockito.never()).round(Mockito.any());
 	}
 
-	@Test
-	public void musicCdNotImportedTest() {
-		final Item cd = new Item("music CD", BigDecimal.valueOf(14.99), ItemType.OTHER, false);
-		Mockito.when(roundingPolicy.round(BigDecimal.valueOf(1.499))).thenReturn(BigDecimal.valueOf(1.5));
-		assertEquals(BigDecimal.valueOf(1.5), salesTaxes.calculateTaxes(cd));
-		Mockito.verify(roundingPolicy, Mockito.times(1)).round(Mockito.any());
-	}
+	/** Food **/
 
 	@Test
 	public void chocolateBarNotImportedTest() {
@@ -50,6 +45,41 @@ public class SalesTaxesTest {
 		final Item chocolateBar = new Item("chocolate bar", BigDecimal.valueOf(10), ItemType.FOOD, true);
 		Mockito.when(roundingPolicy.round(BigDecimal.valueOf(0.5))).thenReturn(BigDecimal.valueOf(0.5));
 		assertEquals(BigDecimal.valueOf(0.50), salesTaxes.calculateTaxes(chocolateBar));
+		Mockito.verify(roundingPolicy, Mockito.times(1)).round(Mockito.any());
+	}
+
+	@Test
+	public void anotherboxChocolateImportedTest() {
+		final Item chocolateBar = new Item("chocolate bar", BigDecimal.valueOf(11.25), ItemType.FOOD, true);
+		Mockito.when(roundingPolicy.round(BigDecimal.valueOf(0.5625))).thenReturn(BigDecimal.valueOf(0.60));
+		assertEquals(BigDecimal.valueOf(0.60), salesTaxes.calculateTaxes(chocolateBar));
+		Mockito.verify(roundingPolicy, Mockito.times(1)).round(Mockito.any());
+	}
+
+	/** Medical **/
+
+	@Test
+	public void pillsNotImportedTest() {
+		final Item perfume = new Item("pills", BigDecimal.valueOf(9.75), ItemType.MEDICAL, false);
+		assertEquals(BigDecimal.valueOf(0), salesTaxes.calculateTaxes(perfume));
+		Mockito.verify(roundingPolicy, Mockito.never()).round(Mockito.any());
+	}
+
+	/** Other **/
+
+	@Test
+	public void musicCdNotImportedTest() {
+		final Item cd = new Item("music CD", BigDecimal.valueOf(14.99), ItemType.OTHER, false);
+		Mockito.when(roundingPolicy.round(BigDecimal.valueOf(1.499))).thenReturn(BigDecimal.valueOf(1.5));
+		assertEquals(BigDecimal.valueOf(1.5), salesTaxes.calculateTaxes(cd));
+		Mockito.verify(roundingPolicy, Mockito.times(1)).round(Mockito.any());
+	}
+
+	@Test
+	public void perfumeNotImportedTest() {
+		final Item perfume = new Item("perfume", BigDecimal.valueOf(18.99), ItemType.OTHER, false);
+		Mockito.when(roundingPolicy.round(BigDecimal.valueOf(1.899))).thenReturn(BigDecimal.valueOf(1.9));
+		assertEquals(BigDecimal.valueOf(1.9), salesTaxes.calculateTaxes(perfume));
 		Mockito.verify(roundingPolicy, Mockito.times(1)).round(Mockito.any());
 	}
 
@@ -69,29 +99,6 @@ public class SalesTaxesTest {
 		Mockito.when(roundingPolicy.round(BigDecimal.valueOf(1.3995))).thenReturn(BigDecimal.valueOf(1.4));
 		assertEquals(BigDecimal.valueOf(4.2), salesTaxes.calculateTaxes(perfume));
 		Mockito.verify(roundingPolicy, Mockito.times(2)).round(Mockito.any());
-	}
-
-	@Test
-	public void perfumeNotImportedTest() {
-		final Item perfume = new Item("perfume", BigDecimal.valueOf(18.99), ItemType.OTHER, false);
-		Mockito.when(roundingPolicy.round(BigDecimal.valueOf(1.899))).thenReturn(BigDecimal.valueOf(1.9));
-		assertEquals(BigDecimal.valueOf(1.9), salesTaxes.calculateTaxes(perfume));
-		Mockito.verify(roundingPolicy, Mockito.times(1)).round(Mockito.any());
-	}
-
-	@Test
-	public void pillsNotImportedTest() {
-		final Item perfume = new Item("pills", BigDecimal.valueOf(9.75), ItemType.MEDICAL, false);
-		assertEquals(BigDecimal.valueOf(0), salesTaxes.calculateTaxes(perfume));
-		Mockito.verify(roundingPolicy, Mockito.never()).round(Mockito.any());
-	}
-
-	@Test
-	public void anotherboxChocolateImportedTest() {
-		final Item chocolateBar = new Item("chocolate bar", BigDecimal.valueOf(11.25), ItemType.FOOD, true);
-		Mockito.when(roundingPolicy.round(BigDecimal.valueOf(0.5625))).thenReturn(BigDecimal.valueOf(0.55));
-		assertEquals(BigDecimal.valueOf(0.60), salesTaxes.calculateTaxes(chocolateBar));
-		Mockito.verify(roundingPolicy, Mockito.times(1)).round(Mockito.any());
 	}
 
 }
