@@ -22,7 +22,7 @@ public class SalesTaxes {
 			final BigDecimal rawTax = item.getShelfPrice().multiply(IMPORT_TAX_RATE).divide(BigDecimal.valueOf(100));
 			taxes = taxes.add(roundingPolicy.round(rawTax));
 		}
-		if (isExemed(item)) {
+		if (isExemedFromBasicTax(item)) {
 			return taxes;
 		}
 		final BigDecimal rawTax = item.getShelfPrice().multiply(BASIC_TAX_RATE).divide(BigDecimal.valueOf(100));
@@ -30,8 +30,8 @@ public class SalesTaxes {
 		return taxes;
 	}
 
-	private boolean isExemed(final Item item) {
-		return item.getType() == ItemType.BOOK || item.getType() == ItemType.FOOD;
+	private boolean isExemedFromBasicTax(final Item item) {
+		return item.getType() == ItemType.BOOK || item.getType() == ItemType.FOOD || item.getType() == ItemType.MEDICAL;
 	}
 
 }
