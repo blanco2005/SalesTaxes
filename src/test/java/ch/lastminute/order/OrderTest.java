@@ -186,4 +186,9 @@ public class OrderTest {
 		assertEquals(BigDecimal.valueOf(6.70), order.getTotalTaxes());
 	}
 
+	@Test(expected = IllegalStateException.class)
+	public void getReceiptForEmptyOrder() {
+		order.toString();
+	}
+
 }

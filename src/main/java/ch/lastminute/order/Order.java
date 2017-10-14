@@ -47,6 +47,14 @@ public class Order {
 		return totalTaxes;
 	}
 
+	@Override
+	public String toString() {
+		if (shoppingBasket.isEmpty()) {
+			throw new IllegalStateException("The order is empty!");
+		}
+		return null;
+	}
+
 	public void add(final Item item) {
 		shoppingBasket.add(item);
 	}
