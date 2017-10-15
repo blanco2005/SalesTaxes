@@ -16,13 +16,13 @@ public class Parser {
 		}
 		final List<Item> result = new LinkedList<>();
 		final Scanner scanner = new Scanner(input);
-		final Item item = buildItemFromString(scanner.nextLine());
-		result.add(item);
+		final List<Item> items = buildItemFromString(scanner.nextLine());
+		result.addAll(items);
 		scanner.close();
 		return result;
 	}
 
-	private Item buildItemFromString(final String line) {
+	private List<Item> buildItemFromString(final String line) {
 
 		final Scanner scanner = new Scanner(line);
 		final int quantiy = scanner.nextInt();
@@ -44,7 +44,11 @@ public class Parser {
 		final BigDecimal shelfPrice = new BigDecimal(scanner.next());
 		final ItemType type = parseType(sbDescription.toString());
 		scanner.close();
-		return new Item(sbDescription.toString(), shelfPrice, type, imported);
+		final List<Item> result = new LinkedList<>();
+		for (int i = 1; i <= quantiy; i++) {
+			result.add(new Item(sbDescription.toString(), shelfPrice, type, imported));
+		}
+		return result;
 	}
 
 	private ItemType parseType(final String description) {

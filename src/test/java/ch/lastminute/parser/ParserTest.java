@@ -27,4 +27,11 @@ public class ParserTest {
 		assertTrue(parser.parse(string).contains(book));
 	}
 
+	@Test
+	public void stringWithObjectDuplicatedTest() {
+		final String string = "2 book at 12.49";
+		final Parser parser = new Parser();
+		assertEquals(parser.parse(string).size(), 2);
+	}
+
 }
