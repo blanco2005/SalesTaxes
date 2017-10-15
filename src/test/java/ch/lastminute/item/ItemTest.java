@@ -21,7 +21,7 @@ public class ItemTest {
 	private final BigDecimal VALID_SHELF_PRICE = BigDecimal.valueOf(10);
 
 	@Test
-	@Parameters({ "0.0001", "1", "12.49", "14.99", })
+	@Parameters({ "0.01", "1", "12.49" })
 	public void getShelfPriceTest(final double shelfPrice) {
 		final Item item = new Item(VALID_DESCRIPTOR, BigDecimal.valueOf(shelfPrice), ItemType.BOOK, true);
 		assertEquals(BigDecimal.valueOf(shelfPrice), item.getShelfPrice());
@@ -33,7 +33,7 @@ public class ItemTest {
 	}
 
 	@Test
-	@Parameters({ "0", "-0.0001", "-1", "-10" })
+	@Parameters({ "0", "-0.01", "-1", "-10" })
 	public void invalidShelfPriceTest(final double shelfPrice) {
 		try {
 			new Item(VALID_DESCRIPTOR, BigDecimal.valueOf(shelfPrice), ItemType.BOOK, true);
@@ -93,13 +93,13 @@ public class ItemTest {
 	}
 
 	@Test
-	public void getImportedFalseTest() {
+	public void getNotImportedTest() {
 		final Item item = new Item(VALID_DESCRIPTOR, VALID_SHELF_PRICE, ItemType.BOOK, false);
 		assertEquals(item.isImported(), false);
 	}
 
 	@Test
-	public void itemDifferentFromNullTest() {
+	public void itemDifferentFromNullEqualsTest() {
 		final Item item = new Item(VALID_DESCRIPTOR, VALID_SHELF_PRICE, ItemType.BOOK, false);
 		assertFalse(item.equals(null));
 	}

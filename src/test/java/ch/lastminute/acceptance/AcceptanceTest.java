@@ -41,7 +41,7 @@ public class AcceptanceTest {
 	}
 
 	@Test
-	public void getReceiptForInput1Order() {
+	public void input1AcceptanceTest() {
 		order.add(bookForInput1);
 		order.add(cdForInput1);
 		order.add(chocolateForInput1);
@@ -56,7 +56,7 @@ public class AcceptanceTest {
 	}
 
 	@Test
-	public void getReceiptForInput2Test() {
+	public void input2AcceptanceTest() {
 		order.add(chocolateForInput2);
 		order.add(perfumForInput2);
 		order.processOrder();
@@ -69,7 +69,7 @@ public class AcceptanceTest {
 	}
 
 	@Test
-	public void getReceiptForInput3Test() {
+	public void input3AcceptanceTest() {
 		order.add(perfumForInput3);
 		order.add(notImportedPerfumForInput3);
 		order.add(pillsForInput3);
