@@ -25,7 +25,6 @@ public class Parser {
 	}
 
 	private List<Item> buildItemFromString(final String line) {
-
 		final Scanner scanner = new Scanner(line);
 		final int quantiy = scanner.nextInt();
 		boolean imported = false;
@@ -45,7 +44,7 @@ public class Parser {
 		}
 		/** Remove extra space. **/
 		sbDescription.deleteCharAt(sbDescription.length() - 1);
-		final BigDecimal shelfPrice = new BigDecimal(scanner.next());
+		final BigDecimal shelfPrice = new BigDecimal(scanner.next()).setScale(2);
 		final ItemType type = parseType(sbDescription.toString());
 		scanner.close();
 		final List<Item> result = new LinkedList<>();

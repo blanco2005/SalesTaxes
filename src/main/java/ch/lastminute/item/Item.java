@@ -83,7 +83,7 @@ public class Item {
 			return false;
 		}
 
-		else if (!shelfPrice.equals(other.shelfPrice)) {
+		else if (!shelfPrice.setScale(2).equals(other.shelfPrice.setScale(2))) {
 			return false;
 		}
 		return true;
