@@ -65,4 +65,17 @@ public class IntegrationOrderTaxesTest {
 		Mockito.verify(roundingPolicy, Mockito.times(1)).round(Mockito.any());
 	}
 
+	@Test
+	public void interactionForInput2Test() {
+		order.add(chocolateForInput2);
+		order.add(perfumForInput2);
+		Mockito.when(roundingPolicy.round(BigDecimal.valueOf(0.5))).thenReturn(BigDecimal.valueOf(0.5));
+		Mockito.when(roundingPolicy.round(BigDecimal.valueOf(2.375))).thenReturn(BigDecimal.valueOf(2.4));
+		Mockito.when(roundingPolicy.round(BigDecimal.valueOf(4.75))).thenReturn(BigDecimal.valueOf(4.75));
+		order.processOrder();
+		assertEquals(BigDecimal.valueOf(65.15), order.getTotalCost());
+		assertEquals(BigDecimal.valueOf(7.65), order.getTotalTaxes());
+		Mockito.verify(roundingPolicy, Mockito.times(3)).round(Mockito.any());
+	}
+
 }
