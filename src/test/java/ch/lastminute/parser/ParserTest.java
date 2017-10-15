@@ -34,4 +34,17 @@ public class ParserTest {
 		assertEquals(parser.parse(string).size(), 2);
 	}
 
+	@Test
+	public void stringWithMultipleObjectsTest() {
+		final String string = "1 book at 12.49\n1 music CD at 14.99\n1 chocolate bar at 0.85\n";
+		final Item bookForInput1 = new Item("book", BigDecimal.valueOf(12.49), ItemType.BOOK, false);
+		final Item cdForInput1 = new Item("music CD", BigDecimal.valueOf(14.99), ItemType.OTHER, false);
+		final Item chocolateForInput1 = new Item("chocolate bar", BigDecimal.valueOf(0.85), ItemType.FOOD, false);
+		final Parser parser = new Parser();
+		assertEquals(parser.parse(string).size(), 3);
+		assertTrue(parser.parse(string).contains(bookForInput1));
+		assertTrue(parser.parse(string).contains(cdForInput1));
+		assertTrue(parser.parse(string).contains(chocolateForInput1));
+	}
+
 }

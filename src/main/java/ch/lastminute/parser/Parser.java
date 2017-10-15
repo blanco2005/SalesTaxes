@@ -16,8 +16,10 @@ public class Parser {
 		}
 		final List<Item> result = new LinkedList<>();
 		final Scanner scanner = new Scanner(input);
-		final List<Item> items = buildItemFromString(scanner.nextLine());
-		result.addAll(items);
+		while (scanner.hasNextLine()) {
+			final List<Item> items = buildItemFromString(scanner.nextLine());
+			result.addAll(items);
+		}
 		scanner.close();
 		return result;
 	}
@@ -33,14 +35,16 @@ public class Parser {
 			switch (nextToken) {
 			case "imported":
 				imported = true;
-				sbDescription.append(nextToken);
+				sbDescription.append(nextToken + " ");
 				break;
 			case "at":
 				break parse;
 			default:
-				sbDescription.append(nextToken);
+				sbDescription.append(nextToken + " ");
 			}
 		}
+		/** Remove extra space. **/
+		sbDescription.deleteCharAt(sbDescription.length() - 1);
 		final BigDecimal shelfPrice = new BigDecimal(scanner.next());
 		final ItemType type = parseType(sbDescription.toString());
 		scanner.close();
