@@ -12,7 +12,7 @@ Here I list the assumptions I made to solve the assignment.
 
 ### Rounding policy
 
-- I assumed the rounding policy is specific for tax computation, i.e., I assumed that the amount ot be rounded must be positive.
+- I assumed the rounding policy is specific for tax computation, i.e., I assumed that the amount to be rounded must be positive.
 
 ## Methodology
 
